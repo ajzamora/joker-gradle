@@ -32,6 +32,12 @@ dependencies {
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
 }
 
-appengine {  // App Engine tasks configuration
+appengine {
+    // App Engine tasks configuration
     tools.cloudSdkHome="/Users/az/Documents/Anything Android/google-cloud-sdk"
+    // uncomment this if you want to make development server accessible to the network
+    // by setting it to listen to external connections (don't forget to change the asynctask to your pc / mac ip address)
+    //run {
+    //    host='0.0.0.0'
+    //}
 }
