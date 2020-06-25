@@ -1,25 +1,21 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.ajzamora.jokepresenter.JokePresenter;
-import com.ajzamora.jokeslib.JokePicker;
 
-public class MainActivity extends AppCompatActivity {
-    private JokePicker mJokePicker;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ajzamora.jokepresenter.JokePresenter;
+
+public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.AsyncTaskListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mJokePicker = new JokePicker();
     }
 
     @Override
@@ -45,14 +41,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-//        String joke = mJokePicker.getJoke();
-//
-//        Intent intent = new Intent(this, JokePresenter.class);
-//        intent.putExtra(JokePresenter.EXTRA_JOKE, joke);
-//        startActivity(intent);
-
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        new EndpointsAsyncTask(this).execute();
     }
 
+    private void launchJokePresenter(String joke) {
+//        if (joke == null) return;
+        Intent intent = new Intent(this, JokePresenter.class);
+        intent.putExtra(JokePresenter.EXTRA_JOKE, joke);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onFinished(String result) {
+        launchJokePresenter(result);
+    }
 }
