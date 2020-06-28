@@ -36,8 +36,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    buildToolsVersion '27.0.3'
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            applicationId "com.udacity.builditbigger.flavors.free"
+            dimension "version"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        paid {
+            applicationId "com.udacity.builditbigger.flavors.paid"
+            dimension "version"
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+        }
+    }
 }
 
 dependencies {
