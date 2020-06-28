@@ -11,6 +11,15 @@ buildscript {
 }
 
 android {
+    signingConfigs {
+        config {
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'keystore999'
+            keyAlias 'joker'
+            keyPassword 'joker999'
+
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -34,6 +43,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     flavorDimensions "version"
@@ -43,12 +53,21 @@ android {
             dimension "version"
             applicationIdSuffix ".free"
             versionNameSuffix "-free"
+            signingConfig signingConfigs.config
         }
         paid {
             applicationId "com.udacity.builditbigger.flavors.paid"
             dimension "version"
             applicationIdSuffix ".paid"
             versionNameSuffix "-paid"
+            signingConfig signingConfigs.config
+        }
+    }
+    configurations {
+        all {
+            exclude module: 'httpclient'
+            exclude module: 'commons-logging'
+            exclude group: 'xpp3', module: 'xpp3'
         }
     }
 }
