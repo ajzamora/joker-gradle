@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="@dimen/joke_text_size"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        tools:text="@string/default_joke_text"
         />
 
 </FrameLayout>
