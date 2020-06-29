@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -14,6 +15,7 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import java.io.IOException;
 
 class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+    private static String LOG_TAG = EndpointsAsyncTask.class.getSimpleName();
     private static MyApi myApiService = null;
     @SuppressLint("StaticFieldLeak")
 
@@ -50,7 +52,8 @@ class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             return myApiService.tellJoke().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            Log.v(LOG_TAG, e.getMessage());
+            return "";
         }
     }
 
